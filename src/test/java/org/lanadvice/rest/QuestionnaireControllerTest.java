@@ -11,6 +11,7 @@ import org.lanadvice.service.QuestionnaireService;
 import javax.inject.Inject;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -36,10 +37,14 @@ public class QuestionnaireControllerTest {
     public void addSurveyTest() {
         Question question = prepareQuestion();
         String questionId = question.getId().toString();
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("s", "0888878786");
+        queryParams.put("a", "3");
+        queryParams.put("q", questionId);
         given()
                 .log().all()
                 .when()
-                .queryParams(Map.of("s", "0888878786", "a", "3", "q", questionId))
+                .queryParams(queryParams)
                 .contentType(ContentType.JSON)
                 .post(QuestionnaireController.ROUTE_ROOT + QuestionnaireController.ROUTE_S)
                 .then()
@@ -51,10 +56,13 @@ public class QuestionnaireControllerTest {
     public void searchTest() {
         Question q = prepareQuestion();
         prepareSurvey(q);
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("start", "2020-05-15T00:00:00");
+        queryParams.put("end", "2020-05-19T00:00:00");
         given()
                 .log().all()
                 .when()
-                .queryParams(Map.of("start", "2020-05-15T00:00:00", "end", "2020-05-19T00:00:00"))
+                .queryParams(queryParams)
                 .get(QuestionnaireController.ROUTE_ROOT + QuestionnaireController.ROUTE_SEARCH)
                 .then()
                 .log().all()
