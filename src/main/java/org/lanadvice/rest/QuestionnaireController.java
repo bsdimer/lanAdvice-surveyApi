@@ -9,10 +9,8 @@ import org.lanadvice.service.QuestionnaireService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Path(QuestionnaireController.ROUTE_ROOT)
@@ -22,6 +20,11 @@ public class QuestionnaireController {
     public static final String ROUTE_Q = "/questionnaire";
     public static final String ROUTE_S = "/survey";
     public static final String ROUTE_SEARCH = "/search";
+    public static final String SOURCE_PARAM = "s";
+    public static final String ANSWER_PARAM = "a";
+    public static final String QUESTION_PARAM = "q";
+
+
 
     @Inject
     QuestionnaireService questionnaireService;
@@ -61,7 +64,9 @@ public class QuestionnaireController {
     @Path(QuestionnaireController.ROUTE_S)
     @Consumes("application/json")
     @Produces("application/json")
-    public Survey survey(@QueryParam("s") String s, @QueryParam("a") String a, @QueryParam("q") Long q) {
-        return questionnaireService.addSurvey(s, a, q);
+    public Survey survey(@QueryParam(SOURCE_PARAM) String source,
+                         @QueryParam(ANSWER_PARAM) String answer,
+                         @QueryParam(QUESTION_PARAM) Long question) {
+        return questionnaireService.addSurvey(source, answer, question);
     }
 }

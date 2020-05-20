@@ -64,3 +64,21 @@ will be lost.
 ## Container image build
 In order to build a container image please follow this guide: https://quarkus.io/guides/container-image
  
+## API example
+
+#### Give answer for the quality of the service
+The service has initial database which includes single question with id 1.
+In order to give an answer for this question execute:
+```
+curl --location --request POST 'http://<host>:8080/api/survey?s=0892329323&a=5&q=1'
+```
+where parameter 's' is the number which gives the survey, 'a' is the answer for question  and thq 'q' parameter
+is the question id. 
+
+#### Export the surveys to csv format
+In order to export the survey results into CVS execute the following request:
+
+```
+curl --location --request GET 'http://localhost:8080/api/search?start=2000-01-01T00:00&end=2021-01-01T00:00'
+```
+where parameters 'start' and 'end' are the dates between the values should be returned.
