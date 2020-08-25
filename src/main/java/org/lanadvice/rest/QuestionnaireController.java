@@ -24,8 +24,6 @@ public class QuestionnaireController {
     public static final String ANSWER_PARAM = "a";
     public static final String QUESTION_PARAM = "q";
 
-
-
     @Inject
     QuestionnaireService questionnaireService;
 
